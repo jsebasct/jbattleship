@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package serialworks.visual;
+package serialworks.app.build.field;
 
 import serialworks.ship.ShipType;
 import serialworks.data.ShipContainer;

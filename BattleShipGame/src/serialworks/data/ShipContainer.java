@@ -16,7 +16,7 @@ import serialworks.ship.Ship;
 import serialworks.ship.ShipType;
 import serialworks.ship.Submarine;
 import serialworks.visual.Map;
-import serialworks.visual.ShipOptionsPanel;
+import serialworks.app.build.field.ShipOptionsPanel;
 
 /**
  *
