@@ -14,7 +14,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 
 /**
- * Debes sobreescribirla siempre para que pueda responder a eventos de mouse
+ * A personalized JLabel.
+ * It must be override to answer to mouse events
  * 
  * @author bastian
  */
@@ -22,30 +23,35 @@ public abstract class MiLabel extends JLabel
 {
     protected int posX;
     protected int posY;
-    protected boolean oyente;    
-    protected SoftBevelBorder mouseBorder;
-    protected LineBorder defectBorder;
-    
-    public MiLabel(int x, int y) {
+    protected boolean listener;
 
+    protected SoftBevelBorder mouseBorder;
+    protected LineBorder defaultBorder;
+
+    /**
+     *
+     * @param x
+     * @param y
+     */
+    public MiLabel(int x, int y) {
         super("");
         posX = x;
         posY = y;
-        oyente = true;
+        listener = true;
 
         init();
     }
 
-    public void init() {
+    private void init() {
         mouseBorder = new SoftBevelBorder(SoftBevelBorder.RAISED);
-        defectBorder = new LineBorder(Color.BLACK, 2);
-        setBorder(defectBorder);        
-        
+        defaultBorder = new LineBorder(Color.BLACK, 2);
+
+        setBorder(defaultBorder);
         enableEvents(AWTEvent.MOUSE_EVENT_MASK);
     }
 
-    public void setOyente(boolean o) {
-        oyente = o;
+    public void setOyente(boolean newListener) {
+        listener = newListener;
     }
 
     public Dimension getPos() {
@@ -61,13 +67,13 @@ public abstract class MiLabel extends JLabel
     }
 
     @Override
-    protected abstract void processMouseEvent(MouseEvent evt); //{    }
+    protected abstract void processMouseEvent(MouseEvent evt);
 	
     public void putUp() {
         this.setBorder(mouseBorder);
     }
 
     public void putDown() {
-        this.setBorder(defectBorder);
+        this.setBorder(defaultBorder);
     }
 }

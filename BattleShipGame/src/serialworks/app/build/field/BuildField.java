@@ -8,10 +8,6 @@ package serialworks.app.build.field;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import serialworks.app.welcome.BattleShipLogic;
-import serialworks.app.welcome.InitData;
-import serialworks.visual.BattleField;
-import serialworks.visual.Principal;
 
 /**
  * This 'frame' for now. Its the main window were the player builds its battle
@@ -19,30 +15,12 @@ import serialworks.visual.Principal;
  *
  * @author bastian
  */
-public class BuildField extends javax.swing.JFrame {
+public class BuildField extends javax.swing.JFrame implements PropertyChangeListener {
 
     private ShipOptionsPanel shipOptionsPanel;
-    private Principal principal;
-    private BattleShipLogic logic;
-    private BattleField battleField;
     private int numeroBarcos;
 
     private final PropertyChangeSupport pcs;
-
-    /**
-     * Creates new form BuildField
-     */
-    @Deprecated
-    public BuildField(Principal principal, byte numeroBarcos) {
-        this.principal = principal;
-        this.numeroBarcos = numeroBarcos;
-
-        this.logic = new BattleShipLogic();
-        this.pcs = new PropertyChangeSupport(this);
-
-        initComponents();
-        addMyStuff();
-    }
 
     /**
      * Creates new form BuildField
@@ -73,72 +51,72 @@ public class BuildField extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pMap = new javax.swing.JPanel();
-        pOpciones = new javax.swing.JPanel();
-        panelOk = new javax.swing.JPanel();
-        bAceptar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        panelMap = new javax.swing.JPanel();
+        panelOpciones = new javax.swing.JPanel();
+        panelOptionButtons = new javax.swing.JPanel();
+        btnOk = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pMap.setBackground(new java.awt.Color(0, 153, 153));
-        pMap.setMinimumSize(new java.awt.Dimension(350, 350));
+        panelMap.setBackground(new java.awt.Color(0, 153, 153));
+        panelMap.setMinimumSize(new java.awt.Dimension(350, 350));
 
-        javax.swing.GroupLayout pMapLayout = new javax.swing.GroupLayout(pMap);
-        pMap.setLayout(pMapLayout);
-        pMapLayout.setHorizontalGroup(
-            pMapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelMapLayout = new javax.swing.GroupLayout(panelMap);
+        panelMap.setLayout(panelMapLayout);
+        panelMapLayout.setHorizontalGroup(
+            panelMapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 350, Short.MAX_VALUE)
         );
-        pMapLayout.setVerticalGroup(
-            pMapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelMapLayout.setVerticalGroup(
+            panelMapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 350, Short.MAX_VALUE)
         );
 
-        pOpciones.setBackground(new java.awt.Color(204, 204, 255));
-        pOpciones.setMinimumSize(new java.awt.Dimension(75, 400));
-        pOpciones.setPreferredSize(new java.awt.Dimension(75, 200));
+        panelOpciones.setBackground(new java.awt.Color(204, 204, 255));
+        panelOpciones.setMinimumSize(new java.awt.Dimension(75, 400));
+        panelOpciones.setPreferredSize(new java.awt.Dimension(75, 200));
 
-        javax.swing.GroupLayout pOpcionesLayout = new javax.swing.GroupLayout(pOpciones);
-        pOpciones.setLayout(pOpcionesLayout);
-        pOpcionesLayout.setHorizontalGroup(
-            pOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
+        panelOpciones.setLayout(panelOpcionesLayout);
+        panelOpcionesLayout.setHorizontalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 144, Short.MAX_VALUE)
         );
-        pOpcionesLayout.setVerticalGroup(
-            pOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelOpcionesLayout.setVerticalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
 
-        bAceptar.setText("OK");
-        bAceptar.setEnabled(false);
-        bAceptar.addActionListener(new java.awt.event.ActionListener() {
+        btnOk.setText("OK");
+        btnOk.setEnabled(false);
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bAceptarActionPerformed(evt);
+                btnOkActionPerformed(evt);
             }
         });
 
-        jButton2.setText("CANCEL");
-        jButton2.setEnabled(false);
+        btnCancel.setText("CANCEL");
+        btnCancel.setEnabled(false);
 
-        javax.swing.GroupLayout panelOkLayout = new javax.swing.GroupLayout(panelOk);
-        panelOk.setLayout(panelOkLayout);
-        panelOkLayout.setHorizontalGroup(
-            panelOkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOkLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelOptionButtonsLayout = new javax.swing.GroupLayout(panelOptionButtons);
+        panelOptionButtons.setLayout(panelOptionButtonsLayout);
+        panelOptionButtonsLayout.setHorizontalGroup(
+            panelOptionButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOptionButtonsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnCancel)
                 .addGap(67, 67, 67))
         );
-        panelOkLayout.setVerticalGroup(
-            panelOkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOkLayout.createSequentialGroup()
+        panelOptionButtonsLayout.setVerticalGroup(
+            panelOptionButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOptionButtonsLayout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
-                .addGroup(panelOkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bAceptar)
-                    .addComponent(jButton2))
+                .addGroup(panelOptionButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOk)
+                    .addComponent(btnCancel))
                 .addContainerGap())
         );
 
@@ -150,12 +128,12 @@ public class BuildField extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(66, 66, 66)
-                        .addComponent(panelOk, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(panelOptionButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(pMap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelMap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(pOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -164,44 +142,42 @@ public class BuildField extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pMap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelMap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)
-                        .addComponent(panelOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(panelOptionButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-//        InitData initData = logic.obtainShips(shipOptionsPanel.getShipContainer().getShips());
-//
-//        battleField = new BattleField(initData.getShips(), initData.isServidor(), initData.getIp());
-//
-//        battleField.setVisible(true);
-//        pcs.firePropertyChange("buildPlayGroud", true, false);
-
-//        principal.obtainShips(shipOptionsPanel.getShipContainer().getShips());
-
-        //lo escondemos primero
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         this.setVisible(false);
-
-        this.pcs.firePropertyChange("buildFinished", false, shipOptionsPanel.getShipContainer().getShips());
-    }//GEN-LAST:event_bAceptarActionPerformed
+        this.pcs.firePropertyChange(BuildEnum.FINISHED.name(), false, shipOptionsPanel.getShipContainer().getShips());
+    }//GEN-LAST:event_btnOkActionPerformed
 
     private void addMyStuff() {
-        shipOptionsPanel = new ShipOptionsPanel(numeroBarcos, bAceptar);
-        this.pOpciones.add(shipOptionsPanel);
-        this.pMap.add(shipOptionsPanel.getShipContainer().getMap());
-        //pMap.
+        this.shipOptionsPanel = new ShipOptionsPanel(numeroBarcos);
+        this.shipOptionsPanel.addPropertyChangeListener(this);
+
+        this.panelOpciones.add(shipOptionsPanel);
+        this.panelMap.add(shipOptionsPanel.getShipContainer().getMap());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bAceptar;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JPanel pMap;
-    private javax.swing.JPanel pOpciones;
-    private javax.swing.JPanel panelOk;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnOk;
+    private javax.swing.JPanel panelMap;
+    private javax.swing.JPanel panelOpciones;
+    private javax.swing.JPanel panelOptionButtons;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void propertyChange(PropertyChangeEvent pce) {
+
+        if (pce.getPropertyName().equals("AllShipsInPlace")) {
+            btnOk.setEnabled(true);
+        }
+    }
 }

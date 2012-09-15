@@ -5,6 +5,7 @@
 package serialworks.app.welcome;
 
 import javax.swing.JOptionPane;
+import serialworks.app.build.field.BuildUtils;
 import serialworks.ship.Ship;
 
 /**
@@ -55,7 +56,7 @@ public class BattleShipLogic {
                         ip = "?";
                     }
 
-                } while ((!ipValida(ip)));
+                } while ((!BuildUtils.ipValida(ip)));
 
 
             } else if (n == JOptionPane.NO_OPTION) {
@@ -83,48 +84,6 @@ public class BattleShipLogic {
 //        this.setVisible(false);
 //
 //        battleField.setVisible(true);
-    }
-
-    private boolean ipValida(String input) {
-        boolean res = true;
-
-        if (!input.equalsIgnoreCase("localhost")) {
-            String[] result = input.split("\\.");
-
-
-            for (int x = 0; x < result.length; x++) {
-                System.out.println(result[x]);
-            }
-
-            if (result.length != 4) {
-
-                res = false;
-
-            } else {
-
-                int i = 0;
-
-                while ((i < result.length) && (res == true)) {
-                    String aux = result[i];
-                    int num = 0;
-
-                    try {
-                        num = Integer.parseInt(aux);
-                        if (num < 0 && num > 255) {
-                            System.out.println(num);
-                            res = false;
-                        }
-                    } catch (NumberFormatException ex) {
-                        res = false;
-                    }
-                    //finally{
-                    i++;
-                    //}
-                }
-            }
-        }
-
-        return res;
     }
 
 }

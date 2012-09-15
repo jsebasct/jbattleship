@@ -57,7 +57,7 @@ public class LabelAtack extends MiLabel {
     @Override
     protected void processMouseEvent(MouseEvent evt) {
 
-        if (oyente) {
+        if (listener) {
             switch (evt.getID()) {
                 case MouseEvent.MOUSE_ENTERED:
                     this.setBorder(mouseBorder);
@@ -69,7 +69,7 @@ public class LabelAtack extends MiLabel {
                     break;
 
                 case MouseEvent.MOUSE_EXITED:
-                    this.setBorder(defectBorder);
+                    this.setBorder(defaultBorder);
                     //mapContainer.mouseSalio();
                     //vetado = false;
                     break;

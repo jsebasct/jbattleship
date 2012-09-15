@@ -10,6 +10,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import serialworks.app.build.field.BuildEnum;
 import serialworks.app.build.field.BuildField;
 import serialworks.app.build.field.BuildUtils;
 import serialworks.app.welcome.EventEnum;
@@ -26,10 +27,8 @@ import serialworks.visual.BattleField;
 public class BattleShipApp implements PropertyChangeListener {
 
     private static final int DEFAULT_NUM_SHIPS = 5;
-
     private JFrame frameMain;
     private MainWelcomePanel panelMain;
-
     private BuildField buildField;
     private BattleField battleField;
 
@@ -45,12 +44,13 @@ public class BattleShipApp implements PropertyChangeListener {
     }
 
     /**
-     * Adds <code>panelMain</code> content to a frame, center it and show it.
+     * Adds
+     * <code>panelMain</code> content to a frame, center it and show it.
      */
     public void run() {
         frameMain.getContentPane().add(panelMain);
         centerScreen();
-        
+
         frameMain.pack();
         frameMain.setVisible(true);
     }
@@ -62,6 +62,7 @@ public class BattleShipApp implements PropertyChangeListener {
 
     /**
      * Process some events from its subjects.
+     *
      * @param pce
      */
     @Override
@@ -72,7 +73,7 @@ public class BattleShipApp implements PropertyChangeListener {
         } else if (pce.getPropertyName().equals(EventEnum.END.name())) {
             System.exit(0);
 
-        } else if (pce.getPropertyName().equals("buildFinished")) {
+        } else if (pce.getPropertyName().equals(BuildEnum.FINISHED.name())) {
 
             Object builded = pce.getNewValue();
             if (builded != null && builded instanceof Ship[]) {
@@ -98,36 +99,26 @@ public class BattleShipApp implements PropertyChangeListener {
     private void obtainShips(Ship[] ships) {
         boolean servidor = true;
 
-        if (ships == null) {
-            System.out.println("Ships en Principal es NULL");
-            System.exit(-1);
-        }
-
-        //---------------------------
-
         String string1 = "Si, por favor";
         String string2 = "De ninguna manera";
-        Object[] options = {string1, string2};
+        String[] options = {string1, string2};
 
         boolean salir = false;
         String ip = null;
 
         do {
+            int ansOptionServer = JOptionPane.showOptionDialog(null,
+                    "Deseas conectarte a alguien?",     //mensaje
+                    "Cliente o Servidor",               //titulo
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                    null,                               //don't use a custom Icon
+                    options,                            //the titles of buttons
+                    string1);                           //the title of the default button
 
-            int n = JOptionPane.showOptionDialog(null,
-                    "Deseas conectarte a alguien?",//mensaje
-                    "Cliente o Servidor",//titulo
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null, //don't use a custom Icon
-                    options, //the titles of buttons
-                    string1); //the title of the default button
-
-            if (n == JOptionPane.YES_OPTION) {
-                //System.out.println("You're kidding!");
+            if (ansOptionServer == JOptionPane.YES_OPTION)
+            {
                 salir = true;
                 servidor = false;
-
 
                 do {
                     ip = JOptionPane.showInputDialog("Porfa Ingrese el IP "
@@ -141,17 +132,15 @@ public class BattleShipApp implements PropertyChangeListener {
                 } while ((!BuildUtils.ipValida(ip)));
 
 
-            } else if (n == JOptionPane.NO_OPTION) {
-                //System.out.println("I don't like them, either.");
+            } else if (ansOptionServer == JOptionPane.NO_OPTION) {
                 salir = true;
                 servidor = true;
 
-            } else if (n == JOptionPane.CLOSED_OPTION) {
+            } else if (ansOptionServer == JOptionPane.CLOSED_OPTION) {
                 System.out.println("No lo cierres");
             } else {
                 System.out.println("Do it again!");
             }
-
         } while (!salir);
 
         battleField = new BattleField(ships, servidor, ip);
