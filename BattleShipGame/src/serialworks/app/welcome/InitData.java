@@ -7,6 +7,7 @@ package serialworks.app.welcome;
 import serialworks.ship.Ship;
 
 /**
+ * POJO for BattleShipLogic class.
  *
  * @author jscruz
  */

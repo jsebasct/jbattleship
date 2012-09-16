@@ -9,11 +9,11 @@ import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import serialworks.app.build.field.BuildEnum;
 import serialworks.app.build.field.BuildField;
-import serialworks.app.build.field.BuildUtils;
+import serialworks.app.welcome.BattleShipLogic;
 import serialworks.app.welcome.EventEnum;
+import serialworks.app.welcome.InitData;
 import serialworks.app.welcome.MainWelcomePanel;
 import serialworks.ship.Ship;
 import serialworks.visual.BattleField;
@@ -67,10 +67,10 @@ public class BattleShipApp implements PropertyChangeListener {
      */
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
-        if (pce.getPropertyName().equals(EventEnum.START.name())) {
+        if (pce.getPropertyName().equals(EventEnum.START_GAME.name())) {
             showBuildField();
 
-        } else if (pce.getPropertyName().equals(EventEnum.END.name())) {
+        } else if (pce.getPropertyName().equals(EventEnum.END_GAME.name())) {
             System.exit(0);
 
         } else if (pce.getPropertyName().equals(BuildEnum.FINISHED.name())) {
@@ -97,53 +97,11 @@ public class BattleShipApp implements PropertyChangeListener {
      * @param ships
      */
     private void obtainShips(Ship[] ships) {
-        boolean servidor = true;
 
-        String string1 = "Si, por favor";
-        String string2 = "De ninguna manera";
-        String[] options = {string1, string2};
+        BattleShipLogic logic = new BattleShipLogic();
+        InitData obtainShips = logic.obtainShips(ships);
 
-        boolean salir = false;
-        String ip = null;
-
-        do {
-            int ansOptionServer = JOptionPane.showOptionDialog(null,
-                    "Deseas conectarte a alguien?",     //mensaje
-                    "Cliente o Servidor",               //titulo
-                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
-                    null,                               //don't use a custom Icon
-                    options,                            //the titles of buttons
-                    string1);                           //the title of the default button
-
-            if (ansOptionServer == JOptionPane.YES_OPTION)
-            {
-                salir = true;
-                servidor = false;
-
-                do {
-                    ip = JOptionPane.showInputDialog("Porfa Ingrese el IP "
-                            + "\n" + "al que te conectaras");
-                    System.out.println(ip);
-
-                    if (ip == null /*|| inputValue.equals("") */) {
-                        ip = "?";
-                    }
-
-                } while ((!BuildUtils.ipValida(ip)));
-
-
-            } else if (ansOptionServer == JOptionPane.NO_OPTION) {
-                salir = true;
-                servidor = true;
-
-            } else if (ansOptionServer == JOptionPane.CLOSED_OPTION) {
-                System.out.println("No lo cierres");
-            } else {
-                System.out.println("Do it again!");
-            }
-        } while (!salir);
-
-        battleField = new BattleField(ships, servidor, ip);
+        battleField = new BattleField(ships, obtainShips.isServidor(), obtainShips.getIp());
         frameMain.setVisible(false);
         battleField.setVisible(true);
     }

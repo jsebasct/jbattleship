@@ -6,50 +6,53 @@ package serialworks.app.welcome;
 
 import javax.swing.JOptionPane;
 import serialworks.app.build.field.BuildUtils;
+import serialworks.app.i18n.International;
 import serialworks.ship.Ship;
 
 /**
- * Presenter class for BuildField
+ * Got some logic for BuildField.
+ *
  * @author jscruz
  */
 public class BattleShipLogic {
 
-    public InitData obtainShips(Ship[] ships)
-    {
-        boolean servidor = true;
+    /**
+     * It obtains the initial data needed for the instantiation of a BattleField
+     *
+     * @param ships
+     * @return
+     */
+    public InitData obtainShips(Ship[] ships) {
+        boolean server = true;
 
-        if (ships == null) {
-            System.out.println("Ships en Principal es NULL");
-            System.exit(-1);
-        }
+        String positive = International.getInstance().getMessage("msg.build.field.option.sure");
+        String negative = International.getInstance().getMessage("msg.build.field.option.no_way");
 
-        String string1 = "Si, por favor";
-        String string2 = "De ninguna manera";
-        Object[] options = {string1, string2};
+        String optionPaneTitle = International.getInstance().getMessage("msg.battle.initial.option.title");
+        String optionPaneQuestion = International.getInstance().getMessage("msg.battle.initial.option.question");
 
-        boolean salir = false;
+        String[] options = {positive, negative};
+
+        boolean goOut = false;
         String ip = null;
 
         do {
-
-            int n = JOptionPane.showOptionDialog(null,
-                    "Deseas conectarte a alguien?",//mensaje
-                    "Cliente o Servidor",//titulo
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
+            int ansOptionServer = JOptionPane.showOptionDialog(null,
+                    optionPaneQuestion, //mensaje
+                    optionPaneTitle, //titulo
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                     null, //don't use a custom Icon
                     options, //the titles of buttons
-                    string1); //the title of the default button
+                    positive);                           //the title of the default button
 
-            if (n == JOptionPane.YES_OPTION) {
-                //System.out.println("You're kidding!");
-                salir = true;
-                servidor = false;
-
+            if (ansOptionServer == JOptionPane.YES_OPTION)
+            {
+                goOut = true;
+                server = false;
 
                 do {
-                    ip = JOptionPane.showInputDialog("Porfa Ingrese el IP "
-                            + "\n" + "al que te conectaras");
+                    String msgEnterIP = International.getInstance().getMessage("msg.battle.initial.ip");
+                    ip = JOptionPane.showInputDialog(msgEnterIP);
                     System.out.println(ip);
 
                     if (ip == null /*|| inputValue.equals("") */) {
@@ -58,32 +61,23 @@ public class BattleShipLogic {
 
                 } while ((!BuildUtils.ipValida(ip)));
 
+            } else if (ansOptionServer == JOptionPane.NO_OPTION) {
+                goOut = true;
+                server = true;
 
-            } else if (n == JOptionPane.NO_OPTION) {
-                //System.out.println("I don't like them, either.");
-                salir = true;
-                servidor = true;
-
-            } else if (n == JOptionPane.CLOSED_OPTION) {
-                System.out.println("No lo cierres");
+            } else if (ansOptionServer == JOptionPane.CLOSED_OPTION) {
+                System.out.println("Dont close it");
+                
             } else {
                 System.out.println("Do it again!");
             }
-
-        } while (!salir);
+        } while (!goOut);
 
         InitData initData = new InitData();
-        initData.setServidor(servidor);
+        initData.setServidor(server);
         initData.setShips(ships);
         initData.setIp(ip);
 
         return initData;
-
-//        battleField = new BattleField(ships, servidor, ip);
-//
-//        this.setVisible(false);
-//
-//        battleField.setVisible(true);
     }
-
 }

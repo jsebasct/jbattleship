@@ -6,11 +6,12 @@ package serialworks.app.welcome;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import serialworks.app.i18n.International;
 
 /**
- * This is the welcome panel.
- *
- * Presents Options to Start the Game or to Exit.
+ * This is the welcome panel. Its mean to be an stupid GUI. Should be easily
+ * replaced by an web GUI or something. Presents Options to Start the Game or to
+ * Exit.
  *
  * @author jscruz
  */
@@ -24,6 +25,7 @@ public class MainWelcomePanel extends javax.swing.JPanel {
     public MainWelcomePanel() {
         pcs = new PropertyChangeSupport(this);
         initComponents();
+        i18n();
     }
 
     /**
@@ -151,14 +153,12 @@ public class MainWelcomePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
-        this.pcs.firePropertyChange(EventEnum.START.name(), false, true);
+        this.pcs.firePropertyChange(EventEnum.START_GAME.name(), false, true);
     }//GEN-LAST:event_btnStartActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        this.pcs.firePropertyChange(EventEnum.END.name(), false, true);
+        this.pcs.firePropertyChange(EventEnum.END_GAME.name(), false, true);
     }//GEN-LAST:event_btnExitActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnStart;
@@ -169,14 +169,18 @@ public class MainWelcomePanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelShow;
     // End of variables declaration//GEN-END:variables
 
-
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
-         this.pcs.addPropertyChangeListener(listener);
-     }
+        this.pcs.addPropertyChangeListener(listener);
+    }
 
     @Override
-     public void removePropertyChangeListener(PropertyChangeListener listener) {
-         this.pcs.removePropertyChangeListener(listener);
-     }
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        this.pcs.removePropertyChangeListener(listener);
+    }
+
+    private void i18n() {
+        this.btnStart.setText(International.getInstance().getMessage("msg.welcome.option.play"));
+        this.btnExit.setText(International.getInstance().getMessage("msg.welcome.option.go_out"));
+    }
 }

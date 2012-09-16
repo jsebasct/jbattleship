@@ -9,6 +9,6 @@ package serialworks.app.welcome;
  * @author jscruz
  */
 public enum EventEnum {
-    START,
-    END
+    START_GAME,
+    END_GAME
 }
